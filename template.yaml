@@ -83,24 +83,10 @@ Resources:
     Type: AWS::AppSync::Resolver
     Properties:
       ApiId: !GetAtt AppSyncTicketAPI.ApiId
-      CodeS3Location: ./src/resolvers/baseResolver.js
+      CodeS3Location: ./src/resolvers/getSingleTicket.js
       FieldName: getSingleTicket
       TypeName: Query
-      Kind: PIPELINE
-      Runtime:
-        Name: APPSYNC_JS
-        RuntimeVersion: 1.0.0
-      PipelineConfig:
-        Functions:
-          - !GetAtt GetSingleTicketFunction.FunctionId
-
-  GetSingleTicketFunction:
-    Type: AWS::AppSync::FunctionConfiguration
-    Properties:
-      ApiId: !GetAtt AppSyncTicketAPI.ApiId
-      CodeS3Location: ./src/resolvers/getSingleTicket.js
-      DataSourceName: !GetAtt TicketTableDataSource.Name
-      Name: GetSingleTicketFunction
+      DataSourceName: TicketTableDataSource
       Runtime:
         Name: APPSYNC_JS
         RuntimeVersion: 1.0.0
@@ -110,28 +96,13 @@ Resources:
     Type: AWS::AppSync::Resolver
     Properties:
       ApiId: !GetAtt AppSyncTicketAPI.ApiId
-      CodeS3Location: ./src/resolvers/baseResolver.js
+      CodeS3Location: ./src/resolvers/getAllTickets.js
       FieldName: getAllTickets
       TypeName: Query
-      Kind: PIPELINE
+      DataSourceName: TicketTableDataSource
       Runtime:
         Name: APPSYNC_JS
         RuntimeVersion: 1.0.0
-      PipelineConfig:
-        Functions:
-          - !GetAtt GetAllTicketsFunction.FunctionId
-
-  GetAllTicketsFunction:
-    Type: AWS::AppSync::FunctionConfiguration
-    Properties:
-      ApiId: !GetAtt AppSyncTicketAPI.ApiId
-      CodeS3Location: ./src/resolvers/getAllTickets.js
-      DataSourceName: !GetAtt TicketTableDataSource.Name
-      Name: GetAllTicketsFunction
-      Runtime:
-        Name: APPSYNC_JS
-        RuntimeVersion: 1.0.0
-
 
 
 
@@ -139,25 +110,12 @@ Resources:
     Type: AWS::AppSync::Resolver
     Properties:
       ApiId: !GetAtt AppSyncTicketAPI.ApiId
-      CodeS3Location: ./src/resolvers/baseResolver.js
+      CodeS3Location: ./src/resolvers/createSingleTicket.js
       FieldName: createSingleTicket
       TypeName: Mutation
-      Kind: PIPELINE
+      DataSourceName: TicketTableDataSource
       Runtime:
         Name: APPSYNC_JS
         RuntimeVersion: 1.0.0
-      PipelineConfig:
-        Functions:
-          - !GetAtt CreateSingleTicketFunction.FunctionId
 
-  CreateSingleTicketFunction:
-    Type: AWS::AppSync::FunctionConfiguration
-    Properties:
-      ApiId: !GetAtt AppSyncTicketAPI.ApiId
-      CodeS3Location: ./src/resolvers/createSingleTicket.js
-      DataSourceName: !GetAtt TicketTableDataSource.Name
-      Name: CreateSingleTicketFunction
-      Runtime:
-        Name: APPSYNC_JS
-        RuntimeVersion: 1.0.0
 
