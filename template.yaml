@@ -86,7 +86,7 @@ Resources:
       CodeS3Location: ./src/resolvers/getSingleTicket.js
       FieldName: getSingleTicket
       TypeName: Query
-      DataSourceName: TicketTableDataSource
+      DataSourceName: !GetAtt TicketTableDataSource.Name
       Runtime:
         Name: APPSYNC_JS
         RuntimeVersion: 1.0.0
@@ -99,11 +99,10 @@ Resources:
       CodeS3Location: ./src/resolvers/getAllTickets.js
       FieldName: getAllTickets
       TypeName: Query
-      DataSourceName: TicketTableDataSource
+      DataSourceName: !GetAtt TicketTableDataSource.Name
       Runtime:
         Name: APPSYNC_JS
         RuntimeVersion: 1.0.0
-
 
 
   CreateSingleTicketResolver:
@@ -113,7 +112,7 @@ Resources:
       CodeS3Location: ./src/resolvers/createSingleTicket.js
       FieldName: createSingleTicket
       TypeName: Mutation
-      DataSourceName: TicketTableDataSource
+      DataSourceName: !GetAtt TicketTableDataSource.Name
       Runtime:
         Name: APPSYNC_JS
         RuntimeVersion: 1.0.0
